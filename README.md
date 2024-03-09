@@ -19,6 +19,9 @@ Ensure the following environment variables are set:
 - `REACT_APP_LOVE_TOKEN_API_URL=https://13.49.67.88:3000`
 - `REACT_APP_LOVE_TOKEN_TEST_API_URL=http://13.49.67.88:3001`
 
+**Attention!**
+The `REACT_APP_GOOGLE_CLIENT_ID` environment variable is not defined in this readme so you will not be able to Login with Google locally.
+
 #### Installation steps:
 1. Install [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) by following the instructions on their respective websites.
 
@@ -156,6 +159,8 @@ The component structure of the application is briefly illustrated in the diagram
 ## Testing:
 
 The testing suite, comprising 6 test suites and 22 individual tests in total, evaluates the application's store functionalities. Tests for the Affection List API encompass operations like adding, fetching, and updating love tokens, ensuring effective management of Affection Lists. Similarly, LoveTokenApi tests features such as fetching, creating, and deleting love tokens, ensuring seamless store operations. AuthSlice and CategoriesSlice Reducer tests validate authentication status toggling and category list manipulation accuracy, fortifying the store's resilience and robustness. These tests represent a subset of comprehensive efforts to ensure store stability.
+
+**Attention!** To conduct tests on the Testing database, utilize `process.env.REACT_APP_LOVE_TOKEN_TEST_API_URL` instead of `mockBaseAffectionListUrl` or `mockBaseUserUrl`. Ensure to update the variables in the files `src/store/affectionListApi.ts` and `userApi.ts` accordingly. Additionally, uncomment the tests in `affectionListApiDatabase.test.ts` and `userApiDatabase.test.ts`.
 
 - **Libraries/Frameworks Used:** Jest is used as the testing framework along with React Testing Library for unit testing. The `react-scripts` package is utilized for running tests.
 
