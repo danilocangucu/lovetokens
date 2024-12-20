@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@number-flow/react": "^0.4.4",
     "@react-oauth/google": "^0.12.1",
     "@reduxjs/toolkit": "^2.2.0",
     "@tailwindcss/typography": "^0.5.10",
@@ -57,4 +58,3 @@
     "text-encoding": "^0.7.0"
   }
 }
-
