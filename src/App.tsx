@@ -19,6 +19,7 @@ import { useTheme } from "./contexts/ThemeContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import DeleteAccount from "./pages/DeleteAccount";
 import Footer from "./components/shared/Footer";
+import TopBar from "./components/topbar/TopBar";
 
 function App() {
   const loggedUser = useLoggedInState();
@@ -27,6 +28,7 @@ function App() {
 
   return <div className={`App theme${theme === 'light' ? '--light' : '--dark'}`}>
     <ToastContainer autoClose={4000} position="top-center" transition={Slide} />
+    <TopBar />
     <NavBar loggedUser={loggedUser} />
     <main>
       <Routes>
