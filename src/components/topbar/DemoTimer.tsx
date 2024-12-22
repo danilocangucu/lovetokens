@@ -1,22 +1,44 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import NumberFlow from '@number-flow/react';
 
-import demoTime from '../../demo-time.json';
 import Redirect from './Redirect';
 
 const DemoTimer = () => {
-    const startTime = demoTime.starttime;
-    const [remainingTime, setRemainingTime] = useState(300 - Math.floor((Date.now() / 1000) - startTime));
+    const [remainingTime, setRemainingTime] = useState<number | null>(null);
+    const [startTime, setStartTime] = useState(null);
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            const newRemainingTime = 300 - Math.floor((Date.now() / 1000) - startTime);
-            setRemainingTime(newRemainingTime);
-        }, 1000);
-        console.log("useEffect")
+        const fetchDemoTime = async () => {
+            try {
+                const { data } = await axios.get('https://lovetokens.danilocangucu.net/demotime.json');
+                const fetchedStartTime = data.starttime;
 
-        return () => clearInterval(timer);
+                setStartTime(fetchedStartTime);
+                const initialRemainingTime = 300 - Math.floor((Date.now() / 1000) - fetchedStartTime);
+                setRemainingTime(initialRemainingTime);
+            } catch (error) {
+                console.error('Error fetching demoTime:', error);
+            }
+        };
+
+        fetchDemoTime();
+    }, []);
+
+    useEffect(() => {
+        if (startTime !== null) {
+            const timer = setInterval(() => {
+                const newRemainingTime = 300 - Math.floor((Date.now() / 1000) - startTime);
+                setRemainingTime(newRemainingTime);
+            }, 1000);
+
+            return () => clearInterval(timer);
+        }
     }, [startTime]);
+
+    if (remainingTime === null) {
+        return <p>Loading...</p>;
+    }
 
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
